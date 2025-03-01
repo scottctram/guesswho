@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Image Picker</title>
+    <title>Who Is IT!?!?!</title>
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -13,16 +13,16 @@
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        grid-template-rows: repeat(auto-fill, minmax(120px, 1fr)); /* Makes rows taller */
+        grid-template-rows: repeat(auto-fill, minmax(120px, 1fr)); 
         justify-content: center;
         gap: 10px;
-        max-width: 500px; /* Optional: you can set a max width for the grid */
+        max-width: 500px; 
         margin: 0 auto;
     }
     .grid img {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* Ensures the full image is visible */
+        object-fit: contain; 
         cursor: pointer;
         border: 2px solid transparent;
         transition: opacity 0.3s;
@@ -64,7 +64,7 @@
     <div class="grid" id="scoleGrid"></div>
 
     <!-- Other Party -->
-    <span class="category-label">Other Party</span>
+    <span class="category-label">Other</span>
     <div class="grid" id="otherGrid"></div>
 
     <button onclick="pickRandomImage()">Pick Random Image</button>
