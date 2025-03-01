@@ -87,6 +87,46 @@
     </div>
 
     <script>
+const repoOwner = "scottctram"; // Replace with your GitHub username
+const repoName = "guesswho"; // Replace with your repository name
+const branch = "main"; // Or use the branch where images are stored
+const scolePartyPath = "images/scoleparty"; // Path inside the repo
+const otherPartyPath = "images/otherparty"; // Path inside the repo
+const githubApiBase = `https://api.github.com/repos/${repoOwner}/${repoName}/contents`;
+
+// Function to fetch images from a folder in the repo
+async function fetchImagesFromGitHub(folderPath) {
+    try {
+        const response = await fetch(`${githubApiBase}/${folderPath}?ref=${branch}`);
+        if (!response.ok) throw new Error(`GitHub API error: ${response.statusText}`);
+        
+        const files = await response.json();
+        return files
+            .filter(file => file.type === "file" && file.name.match(/\.(jpg|jpeg|png|gif)$/i))
+            .map(file => file.download_url); // GitHub API provides direct download links
+    } catch (error) {
+        console.error("Error fetching images:", error);
+        return [];
+    }
+}
+
+// Function to load images dynamically
+async function loadImages() {
+    const scolePartyImages = await fetchImagesFromGitHub(scolePartyPath);
+    const otherPartyImages = await fetchImagesFromGitHub(otherPartyPath);
+
+    generateGrid(scolePartyImages, "scoleGrid");
+    generateGrid(otherPartyImages, "otherGrid");
+}
+
+// Call the function to load images on page load
+loadImages();
+
+
+        //
+
+        
+        
         const scolePartyImages = [
             'images/scoleparty/dole.jpg',
             'images/scoleparty/dom.jpg',
@@ -166,8 +206,8 @@
         }
 
         // Generate image grids
-        generateGrid(scolePartyImages, 'scoleGrid');
-        generateGrid(otherPartyImages, 'otherGrid');
+    //    generateGrid(scolePartyImages, 'scoleGrid');
+    //    generateGrid(otherPartyImages, 'otherGrid');
     </script>
 
 </body>
