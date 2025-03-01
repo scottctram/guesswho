@@ -114,9 +114,9 @@ async function fetchImagesFromGitHub(folderPath) {
 async function loadImages() {
     const scolePartyImages = await fetchImagesFromGitHub(scolePartyPath);
     const otherPartyImages = await fetchImagesFromGitHub(otherPartyPath);
-        // Generate image grids
-        generateGrid(scolePartyImages, 'scoleGrid');
-        generateGrid(otherPartyImages, 'otherGrid');
+    // Generate image grids
+    generateGrid(scolePartyImages, 'scoleGrid');
+    generateGrid(otherPartyImages, 'otherGrid');
 
 }
 
