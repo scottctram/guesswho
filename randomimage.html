@@ -32,13 +32,13 @@
             border: 2px solid red;
         }
         #randomImage {
-        max-width: 80%;
-        height: auto;
-        margin-top: 20px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
         button {
             margin: 10px;
             padding: 10px;
@@ -145,15 +145,19 @@
         }
 
         function unlockImage() {
-            document.getElementById('timestamp').textContent = ''; // Clear timestamp
+            const imgElement = document.getElementById('randomImage');
+            if (imgElement.style.display === 'block') {
+                // Clear timestamp and reset state only if the image is displayed
+                document.getElementById('timestamp').textContent = ''; // Clear timestamp
 
-            // Show the lock button again and enable the pick button
-            document.getElementById('lockButton').style.display = 'inline-block';
-            document.getElementById('unlockButton').style.display = 'none';
-            document.getElementById('pickRandomImageButton').disabled = false;
+                // Show the lock button again and enable the pick button
+                document.getElementById('lockButton').style.display = 'inline-block';
+                document.getElementById('unlockButton').style.display = 'none';
+                document.getElementById('pickRandomImageButton').disabled = false;
 
-            // Hide the random image
-            document.getElementById('randomImage').style.display = 'none';
+                // Hide the random image
+                imgElement.style.display = 'none';
+            }
         }
 
         // Generate image grids
