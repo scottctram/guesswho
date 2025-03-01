@@ -10,7 +10,8 @@
         .grid img { width: 80px; height: 80px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: opacity 0.3s; }
         .grid img.deselected { opacity: 0.3; border: 2px solid red; }
         #randomImage { max-width: 80%; height: auto; margin-top: 20px; display: none; }
-        button { margin-top: 10px; padding: 10px; font-size: 16px; cursor: pointer; }
+        button { margin: 10px; padding: 10px; font-size: 16px; cursor: pointer; }
+        .category-label { font-weight: bold; margin-top: 20px; display: block; }
     </style>
 </head>
 <body>
@@ -18,28 +19,51 @@
     <h1>Random Image Picker</h1>
     <p>Tap images to exclude them from the random selection.</p>
 
-    <!-- Image Selection Grid -->
-    <div class="grid" id="imageGrid"></div>
+    <button onclick="deselectOtherParty()">Deselect Non-Scole Party</button>
+
+    <!-- Scole Party -->
+    <span class="category-label">Scole Party</span>
+    <div class="grid" id="scoleGrid"></div>
+
+    <!-- Other Party -->
+    <span class="category-label">Other Party</span>
+    <div class="grid" id="otherGrid"></div>
 
     <button onclick="pickRandomImage()">Pick Random Image</button>
     <br>
     <img id="randomImage" alt="Random Image">
 
     <script>
-        const images = [
-            'dole.jpg', 'dom.jpg'
+        const scolePartyImages = [
+            'images/scoleparty/dole.jpg',
+            'images/scoleparty/dom.jpg',
+            'images/scoleparty/img1.jpg',
+            'images/scoleparty/img2.jpg'
+            // Add all Scole Party images here
         ];
 
-        const imageGrid = document.getElementById('imageGrid');
+        const otherPartyImages = [
+            'images/otherparty/other1.jpg',
+            'images/otherparty/other2.jpg',
+            'images/otherparty/other3.jpg',
+            'images/otherparty/other4.jpg'
+            // Add all Other Party images here
+        ];
 
-        // Generate image selection grid
-        images.forEach(image => {
-            const imgElement = document.createElement('img');
-            imgElement.src = image;
-            imgElement.dataset.filename = image; 
-            imgElement.onclick = () => imgElement.classList.toggle('deselected');
-            imageGrid.appendChild(imgElement);
-        });
+        function generateGrid(images, containerId) {
+            const container = document.getElementById(containerId);
+            images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image;
+                imgElement.dataset.filename = image;
+                imgElement.onclick = () => imgElement.classList.toggle('deselected');
+                container.appendChild(imgElement);
+            });
+        }
+
+        function deselectOtherParty() {
+            document.querySelectorAll('#otherGrid img').forEach(img => img.classList.add('deselected'));
+        }
 
         function pickRandomImage() {
             const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')]
@@ -57,6 +81,10 @@
             imgElement.src = selectedImage;
             imgElement.style.display = 'block';
         }
+
+        // Generate image grids
+        generateGrid(scolePartyImages, 'scoleGrid');
+        generateGrid(otherPartyImages, 'otherGrid');
     </script>
 
 </body>
