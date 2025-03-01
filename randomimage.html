@@ -136,12 +136,12 @@
 
             // Show lock button and hide pick button after image is displayed
             document.getElementById('lockContainer').style.display = 'block';
-            document.getElementById('pickRandomImageButton').disabled = false; // Disable Pick Random Image
         }
 
         function lockImage() {
             const timestamp = new Date().toLocaleString();
             document.getElementById('timestamp').textContent = `Locked at: ${timestamp}`;
+            document.getElementById('pickRandomImageButton').disabled = true; // Disable Pick Random Image
 
             // Disable the lock button and show unlock button
             document.getElementById('lockButton').style.display = 'none';
