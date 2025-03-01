@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Who Is IT!?!?!</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-    }
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-        grid-template-rows: repeat(auto-fill, minmax(120px, 1fr)); 
-        justify-content: center;
-        gap: 10px;
-        max-width: 500px; 
-        margin: 0 auto;
-    }
-    .grid img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain; 
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: opacity 0.3s;
-    }
-    .grid img.deselected {
-        opacity: 0.3;
-        border: 2px solid red;
-    }
-    #randomImage {
-        max-width: 80%;
-        height: auto;
-        margin-top: 20px;
-        display: none;
-    }
-    button {
-        margin: 10px;
-        padding: 10px;
-        font-size: 16px;
-        cursor: pointer;
-    }
-    .category-label {
-        font-weight: bold;
-        margin-top: 20px;
-        display: block;
-    }
-</style>
-
-
+    <title>Random Image Picker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(120px, 1fr)); /* Makes rows taller */
+            justify-content: center;
+            gap: 10px;
+            max-width: 500px; /* Optional: you can set a max width for the grid */
+            margin: 0 auto;
+        }
+        .grid img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Ensures the full image is visible */
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: opacity 0.3s;
+        }
+        .grid img.deselected {
+            opacity: 0.3;
+            border: 2px solid red;
+        }
+        #randomImage {
+            max-width: 80%;
+            height: auto;
+            margin-top: 20px;
+            display: none;
+        }
+        button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .category-label {
+            font-weight: bold;
+            margin-top: 20px;
+            display: block;
+        }
+        .lock-button, .unlock-button {
+            display: none; /* Initially hidden */
+            margin-top: 10px;
+        }
+        .timestamp {
+            font-size: 14px;
+            color: gray;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -64,12 +71,18 @@
     <div class="grid" id="scoleGrid"></div>
 
     <!-- Other Party -->
-    <span class="category-label">Other</span>
+    <span class="category-label">Other Party</span>
     <div class="grid" id="otherGrid"></div>
 
     <button onclick="pickRandomImage()">Pick Random Image</button>
     <br>
     <img id="randomImage" alt="Random Image">
+
+    <div id="lockContainer">
+        <button class="lock-button" onclick="lockImage()">Lock</button>
+        <button class="unlock-button" onclick="unlockImage()">Unlock</button>
+        <p id="timestamp" class="timestamp"></p>
+    </div>
 
     <script>
         const scolePartyImages = [
@@ -87,6 +100,8 @@
             'images/otherparty/other4.jpg'
             // Add all Other Party images here
         ];
+
+        let lockedImage = false;
 
         function generateGrid(images, containerId) {
             const container = document.getElementById(containerId);
@@ -118,6 +133,27 @@
             const imgElement = document.getElementById('randomImage');
             imgElement.src = selectedImage;
             imgElement.style.display = 'block';
+
+            // Show lock and unlock buttons
+            document.querySelector('.lock-button').style.display = 'inline-block';
+            document.querySelector('.unlock-button').style.display = 'inline-block';
+            document.getElementById('lockContainer').style.display = 'block';
+        }
+
+        function lockImage() {
+            if (!lockedImage) {
+                const timestamp = new Date().toLocaleString();
+                document.getElementById('timestamp').textContent = `Locked at: ${timestamp}`;
+                lockedImage = true;
+                document.querySelector('.lock-button').style.display = 'none'; // Hide lock button after locking
+            }
+        }
+
+        function unlockImage() {
+            document.getElementById('timestamp').textContent = ''; // Clear timestamp
+            lockedImage = false;
+            document.querySelector('.lock-button').style.display = 'inline-block'; // Show lock button again
+            document.querySelector('.unlock-button').style.display = 'none'; // Hide unlock button
         }
 
         // Generate image grids
