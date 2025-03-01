@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Image Picker</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        img { max-width: 80%; height: auto; margin-top: 20px; display: none; }
+        select { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Random Image Picker</h1>
+    <label for="imageFilter">Deselect images:</label>
+    <select id="imageFilter" multiple size="6"></select>
+    <br>
+    <button onclick="pickRandomImage()">Pick Random Image</button>
+    <br>
+    <img id="randomImage" alt="Random Image">
+
+    <script>
+        const images = [
+            'dole.jpg', 'dom.jpg', 'david.jpg', 'julie.jpg', 'winston.jpg',
+            'gabe.jpg', 'tommmy.jpg']
+        ];
+
+        const filterSelect = document.getElementById('imageFilter');
+        images.forEach(image => {
+            const option = document.createElement('option');
+            option.value = image;
+            option.textContent = image;
+            filterSelect.appendChild(option);
+        });
+
+        function pickRandomImage() {
+            const excluded = Array.from(filterSelect.selectedOptions).map(opt => opt.value);
+            const availableImages = images.filter(img => !excluded.includes(img));
+            
+            if (availableImages.length === 0) {
+                alert('No images selected!');
+                return;
+            }
+            
+            const randomIndex = Math.floor(Math.random() * availableImages.length);
+            const selectedImage = availableImages[randomIndex];
+            
+            const imgElement = document.getElementById('randomImage');
+            imgElement.src = selectedImage;
+            imgElement.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
