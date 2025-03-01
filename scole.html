@@ -115,8 +115,8 @@ async function loadImages() {
     const scolePartyImages = await fetchImagesFromGitHub(scolePartyPath);
     const otherPartyImages = await fetchImagesFromGitHub(otherPartyPath);
 
-    generateGrid(scolePartyImages, "scoleGrid");
-    generateGrid(otherPartyImages, "otherGrid");
+//    generateGrid(scolePartyImages, "scoleGrid");
+//    generateGrid(otherPartyImages, "otherGrid");
 }
 
 // Call the function to load images on page load
@@ -189,8 +189,8 @@ loadImages();
         }
 
         // Generate image grids
-    //    generateGrid(scolePartyImages, 'scoleGrid');
-    //    generateGrid(otherPartyImages, 'otherGrid');
+        generateGrid(scolePartyImages, 'scoleGrid');
+        generateGrid(otherPartyImages, 'otherGrid');
     </script>
 
 </body>
