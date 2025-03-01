@@ -155,12 +155,14 @@
                 document.getElementById('timestamp').textContent = ''; // Clear timestamp
 
                 // Show the lock button again and enable the pick button
-                document.getElementById('lockButton').style.display = 'inline-block';
+                document.getElementById('lockButton').style.display = 'none';
                 document.getElementById('unlockButton').style.display = 'none';
                 document.getElementById('pickRandomImageButton').disabled = false;
+                
 
                 // Hide the random image
                 imgElement.style.display = 'none';
+                
             }
         }
 
