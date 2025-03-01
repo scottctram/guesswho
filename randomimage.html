@@ -6,48 +6,58 @@
     <title>Random Image Picker</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        img { max-width: 80%; height: auto; margin-top: 20px; display: none; }
-        select { margin-bottom: 10px; }
+        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .grid img { width: 80px; height: 80px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: opacity 0.3s; }
+        .grid img.deselected { opacity: 0.3; border: 2px solid red; }
+        #randomImage { max-width: 80%; height: auto; margin-top: 20px; display: none; }
+        button { margin-top: 10px; padding: 10px; font-size: 16px; cursor: pointer; }
     </style>
 </head>
 <body>
+
     <h1>Random Image Picker</h1>
-    <label for="imageFilter">Deselect images:</label>
-    <select id="imageFilter" multiple size="6"></select>
-    <br>
+    <p>Tap images to exclude them from the random selection.</p>
+
+    <!-- Image Selection Grid -->
+    <div class="grid" id="imageGrid"></div>
+
     <button onclick="pickRandomImage()">Pick Random Image</button>
     <br>
     <img id="randomImage" alt="Random Image">
 
     <script>
         const images = [
-            'dole.jpg', 'dom.jpg'
+            'dole.jpg', 'dom.jpg', 'img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg' // Add all your images here
         ];
 
-        const filterSelect = document.getElementById('imageFilter');
+        const imageGrid = document.getElementById('imageGrid');
+
+        // Generate image selection grid
         images.forEach(image => {
-            const option = document.createElement('option');
-            option.value = image;
-            option.textContent = image;
-            filterSelect.appendChild(option);
+            const imgElement = document.createElement('img');
+            imgElement.src = image;
+            imgElement.dataset.filename = image; 
+            imgElement.onclick = () => imgElement.classList.toggle('deselected');
+            imageGrid.appendChild(imgElement);
         });
 
         function pickRandomImage() {
-            const excluded = Array.from(filterSelect.selectedOptions).map(opt => opt.value);
-            const availableImages = images.filter(img => !excluded.includes(img));
-            
+            const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')]
+                .map(img => img.dataset.filename);
+
             if (availableImages.length === 0) {
                 alert('No images selected!');
                 return;
             }
-            
+
             const randomIndex = Math.floor(Math.random() * availableImages.length);
             const selectedImage = availableImages[randomIndex];
-            
+
             const imgElement = document.getElementById('randomImage');
             imgElement.src = selectedImage;
             imgElement.style.display = 'block';
         }
     </script>
+
 </body>
 </html>
