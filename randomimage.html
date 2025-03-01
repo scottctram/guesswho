@@ -140,8 +140,8 @@
 
         function lockImage() {
             const timestamp = new Date().toLocaleString();
-            document.getElementById('timestamp').textContent = `Locked at: ${timestamp}`;
             document.getElementById('pickRandomImageButton').disabled = true; // Disable Pick Random Image
+            document.getElementById('timestamp').textContent = `Locked at: ${timestamp}`;
 
             // Disable the lock button and show unlock button
             document.getElementById('lockButton').style.display = 'none';
