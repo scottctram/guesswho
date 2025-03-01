@@ -24,8 +24,9 @@
             height: 100%;
             object-fit: contain; 
             cursor: pointer;
-            border: 3px solid antiquewhite;
+            border: 3px solid transparent;
             transition: opacity 0.3s;
+            clip-path: inset(0 0 5% 0);
         }
         .grid img.deselected {
             opacity: 0.3;
