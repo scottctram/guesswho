@@ -136,6 +136,7 @@
 
             // Show lock button and hide pick button after image is displayed
             document.getElementById('lockContainer').style.display = 'block';
+            document.getElementById('lockButton').style.display =  'inline-block';
         }
 
         function lockImage() {
@@ -159,7 +160,6 @@
                 document.getElementById('unlockButton').style.display = 'none';
                 document.getElementById('pickRandomImageButton').disabled = false;
                 
-
                 // Hide the random image
                 imgElement.style.display = 'none';
                 
