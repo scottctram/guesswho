@@ -67,15 +67,10 @@
     <h1>Guess Who Selector</h1>
     <p>Tap images to exclude them from the random selection; you can freely tap on the grid after selecting as well.</p>
 
-    <button onclick="deselectOtherParty()">Deselect Other Party</button>
 
     <!-- Scole Party -->
     <span class="category-label">Main Board</span>
     <div class="grid" id="scoleGrid"></div>
-
-    <!-- Other Party -->
-    <span class="category-label">Other</span>
-    <div class="grid" id="otherGrid"></div>
 
     <button id="pickRandomImageButton" onclick="pickRandomImage()">Pick Random Image</button>
     <br>
@@ -91,8 +86,7 @@
 const repoOwner = "scottctram"; // Replace with your GitHub username
 const repoName = "guesswho"; // Replace with your repository name
 const branch = "main"; // Or use the branch where images are stored
-const scolePartyPath = "images/scoleparty"; // Path inside the repo
-const otherPartyPath = "images/otherparty"; // Path inside the repo
+const onlinePath = "images/online"; // Path inside the repo
 const githubApiBase = `https://api.github.com/repos/${repoOwner}/${repoName}/contents`;
 
 // Function to fetch images from a folder in the repo
@@ -113,11 +107,9 @@ async function fetchImagesFromGitHub(folderPath) {
 
 // Function to load images dynamically
 async function loadImages() {
-    const scolePartyImages = await fetchImagesFromGitHub(scolePartyPath);
-    const otherPartyImages = await fetchImagesFromGitHub(otherPartyPath);
+    const onlineImages = await fetchImagesFromGitHub(onlinePath);
     // Generate image grids
-    generateGrid(scolePartyImages, 'scoleGrid');
-    generateGrid(otherPartyImages, 'otherGrid');
+    generateGrid(onlineImages, 'scoleGrid');
 
 }
 
@@ -139,9 +131,7 @@ loadImages();
             });
         }
 
-        function deselectOtherParty() {
-            document.querySelectorAll('#otherGrid img').forEach(img => img.classList.add('deselected'));
-        }
+ 
 
         function pickRandomImage() {
             const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')]
