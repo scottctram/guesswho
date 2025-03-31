@@ -80,6 +80,21 @@
     </div>
     
     <script>
+
+        let unsavedChanges = false;
+
+        // Call this function when changes occur
+        function markChanges() {
+            unsavedChanges = true;
+        }
+
+        window.addEventListener('beforeunload', function (e) {
+            if (unsavedChanges) {
+                e.preventDefault();
+                e.returnValue = ''; // Some browsers require an empty string
+            }
+        });
+        
         const repoConfig = {
             owner: "scottctram",
             name: "guesswho",
