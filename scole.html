@@ -34,21 +34,21 @@
             position: relative;
             border: 3px solid transparent;
         }
+
         .grid img.deselected {
             opacity: 0.3;
         }
-        .grid img.deselected::before {
+
+        .grid img.deselected::after {
             content: '';
             position: absolute;
-            top: 0; /* Keeps the top border in place */
+            top: -3px;
             left: 0;
             right: 0;
-            bottom: 0; /* Ensure it wraps the entire image */
-            border: 3px solid red; /* Red border */
+            height: 3px; 
+            background-color: red; 
             pointer-events: none;
-            box-sizing: border-box;
-            clip-path: inset(15px 0 0 0); /* Apply the same clipping to the border */
-        }   
+        }
         #randomImage {
             max-width: 80%;
             height: auto;
