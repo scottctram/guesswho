@@ -36,17 +36,15 @@
         }
         .grid img.deselected {
             opacity: 0.3;
-            outline: 3px solid red;
-
         }
         .grid img.deselected::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 15px; 
-            border-top: 3px solid red; 
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            border: 3px solid red; 
+            pointer-events: none;
         }
         #randomImage {
             max-width: 80%;
