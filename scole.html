@@ -13,16 +13,15 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-            grid-template-rows: repeat(auto-fill, minmax(120px, 1fr)); 
-            justify-content: center;
+            grid-template-rows: repeat(auto-fill, minmax(120px, 1fr));
             gap: 10px;
-            max-width: 500px; 
+            max-width: 500px;
             margin: 0 auto;
         }
         .grid img {
             width: 100%;
             height: 100%;
-            object-fit: contain; 
+            object-fit: contain;
             cursor: pointer;
             border: 3px solid transparent;
             transition: opacity 0.3s;
@@ -35,10 +34,8 @@
         #randomImage {
             max-width: 80%;
             height: auto;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 20px auto;
+            display: none;
         }
         button {
             margin: 10px;
@@ -63,135 +60,96 @@
     </style>
 </head>
 <body>
-
     <h1>Guess Who Selector</h1>
-    <p>Tap images to exclude them from the random selection; you can freely tap on the grid after selecting as well.</p>
-
+    <p>Tap images to exclude them from selection.</p>
     <button onclick="deselectOtherParty()">Deselect Other Party</button>
-
-    <!-- Scole Party -->
+    
     <span class="category-label">Main Board</span>
     <div class="grid" id="scoleGrid"></div>
-
-    <!-- Other Party -->
+    
     <span class="category-label">Other</span>
     <div class="grid" id="otherGrid"></div>
-
+    
     <button id="pickRandomImageButton" onclick="pickRandomImage()">Pick Random Image</button>
-    <br>
-    <img id="randomImage" alt="Random Image" style="display:none;">
-
+    <img id="randomImage" alt="Random Image">
+    
     <div id="lockContainer" style="display:none;">
         <button id="lockButton" onclick="lockImage()">Lock</button>
         <button id="unlockButton" style="display:none;" onclick="unlockImage()">Unlock</button>
         <p id="timestamp" class="timestamp"></p>
     </div>
-
+    
     <script>
-const repoOwner = "scottctram"; // Replace with your GitHub username
-const repoName = "guesswho"; // Replace with your repository name
-const branch = "main"; // Or use the branch where images are stored
-const scolePartyPath = "images/scoleparty"; // Path inside the repo
-const otherPartyPath = "images/otherparty"; // Path inside the repo
-const githubApiBase = `https://api.github.com/repos/${repoOwner}/${repoName}/contents`;
-
-// Function to fetch images from a folder in the repo
-async function fetchImagesFromGitHub(folderPath) {
-    try {
-        const response = await fetch(`${githubApiBase}/${folderPath}?ref=${branch}`);
-        if (!response.ok) throw new Error(`GitHub API error: ${response.statusText}`);
+        const repoConfig = {
+            owner: "scottctram",
+            name: "guesswho",
+            branch: "main",
+            paths: {
+                scole: "images/scoleparty",
+                other: "images/otherparty"
+            }
+        };
         
-        const files = await response.json();
-        return files
-            .filter(file => file.type === "file" && file.name.match(/\.(jpg|jpeg|png|gif)$/i))
-            .map(file => file.download_url); // GitHub API provides direct download links
-    } catch (error) {
-        console.error("Error fetching images:", error);
-        return [];
-    }
-}
-
-// Function to load images dynamically
-async function loadImages() {
-    const scolePartyImages = await fetchImagesFromGitHub(scolePartyPath);
-    const otherPartyImages = await fetchImagesFromGitHub(otherPartyPath);
-    // Generate image grids
-    generateGrid(scolePartyImages, 'scoleGrid');
-    generateGrid(otherPartyImages, 'otherGrid');
-
-}
-
-// Call the function to load images on page load
-loadImages();
-
-
-        //
-
-
+        async function fetchImages(folderPath) {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/${folderPath}?ref=${repoConfig.branch}`);
+                if (!response.ok) throw new Error(`GitHub API error: ${response.statusText}`);
+                const files = await response.json();
+                return files.filter(file => file.type === "file" && file.name.match(/\.(jpg|jpeg|png|gif)$/i)).map(file => file.download_url);
+            } catch (error) {
+                console.error("Error fetching images:", error);
+                return [];
+            }
+        }
+        
+        async function loadImages() {
+            const [scoleImages, otherImages] = await Promise.all([
+                fetchImages(repoConfig.paths.scole),
+                fetchImages(repoConfig.paths.other)
+            ]);
+            generateGrid(scoleImages, 'scoleGrid');
+            generateGrid(otherImages, 'otherGrid');
+        }
+        
         function generateGrid(images, containerId) {
             const container = document.getElementById(containerId);
-            images.forEach(image => {
-                const imgElement = document.createElement('img');
-                imgElement.src = image;
-                imgElement.dataset.filename = image;
-                imgElement.onclick = () => imgElement.classList.toggle('deselected');
-                container.appendChild(imgElement);
-            });
+            container.innerHTML = images.map(image => `<img src="${image}" data-filename="${image}" onclick="toggleSelection(this)">`).join('');
         }
-
+        
+        function toggleSelection(imgElement) {
+            imgElement.classList.toggle('deselected');
+        }
+        
         function deselectOtherParty() {
             document.querySelectorAll('#otherGrid img').forEach(img => img.classList.add('deselected'));
         }
-
+        
         function pickRandomImage() {
-            const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')]
-                .map(img => img.dataset.filename);
-
-            if (availableImages.length === 0) {
-                alert('No images selected!');
-                return;
-            }
-
-            const randomIndex = Math.floor(Math.random() * availableImages.length);
-            const selectedImage = availableImages[randomIndex];
-
-            const imgElement = document.getElementById('randomImage');
-            imgElement.src = selectedImage;
-            imgElement.style.display = 'block';
-
-            // Show lock button and hide pick button after image is displayed
+            const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')].map(img => img.dataset.filename);
+            if (availableImages.length === 0) return alert('No images selected!');
+            
+            const randomImage = availableImages[Math.floor(Math.random() * availableImages.length)];
+            document.getElementById('randomImage').src = randomImage;
+            document.getElementById('randomImage').style.display = 'block';
             document.getElementById('lockContainer').style.display = 'block';
-            document.getElementById('lockButton').style.display =  'inline-block';
+            document.getElementById('lockButton').style.display = 'inline-block';
         }
-
+        
         function lockImage() {
-            const timestamp = new Date().toLocaleString();
-            document.getElementById('pickRandomImageButton').disabled = true; // Disable Pick Random Image
-            document.getElementById('timestamp').textContent = `Locked at: ${timestamp}`;
-
-            // Disable the lock button and show unlock button
+            document.getElementById('pickRandomImageButton').disabled = true;
+            document.getElementById('timestamp').textContent = `Locked at: ${new Date().toLocaleString()}`;
             document.getElementById('lockButton').style.display = 'none';
             document.getElementById('unlockButton').style.display = 'inline-block';
         }
-
+        
         function unlockImage() {
-            const imgElement = document.getElementById('randomImage');
-            if (imgElement.style.display === 'block') {
-                // Clear timestamp and reset state only if the image is displayed
-                document.getElementById('timestamp').textContent = ''; // Clear timestamp
-
-                // Show the lock button again and enable the pick button
-                document.getElementById('unlockButton').style.display = 'none';
-                document.getElementById('pickRandomImageButton').disabled = false;
-                
-                // Hide the random image
-                imgElement.style.display = 'none';
-                
-            }
+            document.getElementById('randomImage').style.display = 'none';
+            document.getElementById('timestamp').textContent = '';
+            document.getElementById('pickRandomImageButton').disabled = false;
+            document.getElementById('unlockButton').style.display = 'none';
         }
-
-
+        
+        loadImages();
     </script>
-
 </body>
 </html>
