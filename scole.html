@@ -88,9 +88,14 @@
             display: flex;
             justify-content: space-between;
             font-size: 14px;
+            align-items: center; 
         }
 
-        #notepadHeader button {
+        #notepadHeader span {
+            flex-grow: 1; /* Makes the title take available space */
+        }
+
+        #notepadButtons button {
             background: none;
             border: none;
             color: white;
@@ -98,14 +103,19 @@
             font-size: 16px;
         }
 
-        textarea {
+        #notepadText {
             flex: 1;
             width: 100%;
             border: none;
             resize: none;
             padding: 5px;
             font-size: 14px;
-        }     
+        }
+
+        #notepadText.hidden {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -131,13 +141,15 @@
     </div>
 
     <div id="notepad">
-    <div id="notepadHeader">
-        <span>Notepad</span>
-        <button onclick="toggleNotepad()">_</button>
+        <div id="notepadHeader">
+            <span id="notepadTitle">Notepad</span>
+            <div id="notepadButtons">
+                <button id="minimizeButton" onclick="toggleNotepad()">_</button>
+                <button id="expandButton" onclick="expandNotepad()" style="display: none;">⬇️</button>
+            </div>
+        </div>
+        <textarea id="notepadText" placeholder="Write your notes here..."></textarea>
     </div>
-    <textarea id="notepadText" placeholder="Write your notes here..."></textarea>
-    </div>
-
     
     <script>
         
@@ -223,13 +235,26 @@
         
         function toggleNotepad() {
             const notepad = document.getElementById("notepad");
-            if (notepad.style.height === "30px") {
-                notepad.style.height = "200px"; // Expand
+            const notepadText = document.getElementById("notepadText");
+            const minimizeButton = document.getElementById("minimizeButton");
+            const expandButton = document.getElementById("expandButton");
+
+            if (notepadText.style.display === "none") {
+                notepad.style.height = "200px";
+                notepadText.style.display = "block";
+                minimizeButton.style.display = "inline";
+                expandButton.style.display = "none";
             } else {
-                notepad.style.height = "30px"; // Minimize
+                notepad.style.height = "30px";
+                notepadText.style.display = "none";
+                minimizeButton.style.display = "none";
+                expandButton.style.display = "inline";
             }
         }
 
+        function expandNotepad() {
+            toggleNotepad(); 
+        }
         
         loadImages();
     </script>
