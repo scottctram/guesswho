@@ -81,19 +81,12 @@
     
     <script>
 
-        let unsavedChanges = false;
-
-        // Call this function when changes occur
-        function markChanges() {
-            unsavedChanges = true;
-        }
-
         window.addEventListener('beforeunload', function (e) {
-            if (unsavedChanges) {
-                e.preventDefault();
-                e.returnValue = ''; // Some browsers require an empty string
-            }
+        if (unsavedChanges) {
+            e.returnValue = 'You have unsaved changes. Do you really want to leave?'; // Message ignored in most browsers, but still required
+        }
         });
+
         
         const repoConfig = {
             owner: "scottctram",
