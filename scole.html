@@ -29,26 +29,17 @@
             object-fit: cover;
             cursor: pointer;
             transition: opacity 0.3s;
-            clip-path: inset(15px 0 0 0);
+            clip-path: inset(15px 0 0 0); 
             box-sizing: border-box;
             position: relative;
-            border: 3px solid transparent;
+            border: 3px solid transparent; 
         }
 
         .grid img.deselected {
             opacity: 0.3;
+            border: 3px solid red; 
         }
 
-        .grid img.deselected::after {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: 0;
-            right: 0;
-            height: 3px; 
-            background-color: red; 
-            pointer-events: none;
-        }
         #randomImage {
             max-width: 80%;
             height: auto;
