@@ -32,10 +32,19 @@
             transition: opacity 0.3s;
             clip-path: inset(15px 0 0 0);
             box-sizing: border-box;
+            position: relative;
         }
         .grid img.deselected {
             opacity: 0.3;
-            border: 3px solid red;
+        }
+        .grid img.deselected::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px; 
+            border-top: 3px solid red; 
         }
         #randomImage {
             max-width: 80%;
