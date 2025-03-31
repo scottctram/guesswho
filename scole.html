@@ -32,11 +32,23 @@
             clip-path: inset(15px 0 0 0);
             box-sizing: border-box;
             position: relative;
+            border: 3px solid transparent;
         }
         .grid img.deselected {
             opacity: 0.3;
-            border: 3px solid red;
         }
+        .grid img.deselected::before {
+            content: '';
+            position: absolute;
+            top: 0; /* Keeps the top border in place */
+            left: 0;
+            right: 0;
+            bottom: 0; /* Ensure it wraps the entire image */
+            border: 3px solid red; /* Red border */
+            pointer-events: none;
+            box-sizing: border-box;
+            clip-path: inset(15px 0 0 0); /* Apply the same clipping to the border */
+        }   
         #randomImage {
             max-width: 80%;
             height: auto;
