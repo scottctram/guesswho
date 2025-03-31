@@ -68,7 +68,6 @@
 <body>
     <h1>Guess Who Selector</h1>
     <p>Tap images to exclude them from selection.</p>
-    <button onclick="deselectOtherParty()">Deselect Other Party</button>
     
     <span class="category-label">Main Board</span>
     <div class="grid" id="scoleGrid"></div>
@@ -76,6 +75,9 @@
     <span class="category-label">Other</span>
     <div class="grid" id="otherGrid"></div>
     
+    <button id="toggleOtherPartyButton" onclick="toggleOtherParty()">Deselect Other Party</button>
+
+
     <button id="pickRandomImageButton" onclick="pickRandomImage()">Pick Random Image</button>
     <img id="randomImage" alt="Random Image">
     
@@ -126,10 +128,21 @@
         function toggleSelection(imgElement) {
             imgElement.classList.toggle('deselected');
         }
-        
-        function deselectOtherParty() {
-            document.querySelectorAll('#otherGrid img').forEach(img => img.classList.add('deselected'));
+
+
+        function toggleOtherParty() {
+            const images = document.querySelectorAll('#otherGrid img');
+            const allDeselected = Array.from(images).every(img => img.classList.contains('deselected'));
+
+            if (allDeselected) {
+                images.forEach(img => img.classList.remove('deselected'));
+                document.getElementById('toggleOtherPartyButton').textContent = 'Deselect Other Party';
+            } else {
+                images.forEach(img => img.classList.add('deselected'));
+                document.getElementById('toggleOtherPartyButton').textContent = 'Reselect Other Party';
+            }
         }
+
         
         function pickRandomImage() {
             const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')].map(img => img.dataset.filename);
