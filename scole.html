@@ -80,13 +80,6 @@
     </div>
     
     <script>
-
-        window.addEventListener('beforeunload', function (e) {
-        if (unsavedChanges) {
-            e.returnValue = 'You have unsaved changes. Do you really want to leave?'; // Message ignored in most browsers, but still required
-        }
-        });
-
         
         const repoConfig = {
             owner: "scottctram",
