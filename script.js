@@ -135,33 +135,29 @@ async function lockImage() {
 
 
 function unlockImage() {
-
     // Hide the character info container
     const characterInfoContainer = document.getElementById('characterInfo');
-    characterInfoContainer.style.display = 'none';
+    characterInfoContainer.style.display = 'none';  // Hide the character info box
     
     // Clear the character description text
     const characterDescription = document.getElementById('characterDescription');
-    characterDescription.textContent = '';
+    characterDescription.textContent = '';  // Clear the description
     
-    document.getElementById('randomImage').style.display = 'none';
+    // Hide the random image (assuming it's in #randomImage)
+    const randomImage = document.getElementById('randomImage');
+    randomImage.style.display = 'none';  // Hide the image
+    
+    // Clear the timestamp
     document.getElementById('timestamp').textContent = '';
+    
+    // Enable the pick random image button again
     document.getElementById('pickRandomImageButton').disabled = false;
+    
+    // Hide the unlock button and show the lock button again
     document.getElementById('unlockButton').style.display = 'none';
+    document.getElementById('lockButton').style.display = 'inline-block';
 }
 
-function toggleNotepad() {
-    const notepad = document.getElementById("notepad");
-    const notepadText = document.getElementById("notepadText");
-    const minimizeButton = document.getElementById("minimizeButton");
-    const expandButton = document.getElementById("expandButton");
-
-    const isHidden = notepadText.style.display === "none";
-    notepad.style.height = isHidden ? "200px" : "30px";
-    notepadText.style.display = isHidden ? "block" : "none";
-    minimizeButton.style.display = isHidden ? "inline" : "none";
-    expandButton.style.display = isHidden ? "none" : "inline";
-}
 
 function expandNotepad() {
     toggleNotepad();
