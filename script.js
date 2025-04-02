@@ -67,37 +67,43 @@ function pickRandomImage() {
 
 async function fetchCharacterMetadata() {
     try {
-        // Fetch the character metadata (JSON) from the repository
+        // Fetch the metadata of the characters.json file
         const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/data/characters.json?ref=${repoConfig.branch}`);
-        
         if (!response.ok) throw new Error(`GitHub API error: ${response.statusText}`);
         
-        const metadata = await response.json();
-        return metadata;
+        const fileInfo = await response.json();
+        
+        // Fetch the actual JSON data using the download_url
+        const metadataResponse = await fetch(fileInfo.download_url);
+        if (!metadataResponse.ok) throw new Error(`Error fetching metadata file: ${metadataResponse.statusText}`);
+        
+        const metadata = await metadataResponse.json();
+        console.log('Character Metadata:', metadata);  // Log the data to confirm it's an array
+        return Array.isArray(metadata) ? metadata : [];  // Ensure it's an array, otherwise return an empty array
     } catch (error) {
-        console.error("Error fetching character metadata:", error);
-        return null;
+        console.error('Error fetching character metadata:', error);
+        return [];  // Return an empty array in case of an error
     }
 }
+
 
 
 async function lockImage() {
     document.getElementById('pickRandomImageButton').disabled = true;
     const selectedImage = document.getElementById('randomImage').src;
-
-    // Extract character name from the image filename
-    const characterName = selectedImage.split('/').pop().split('.')[0].toLowerCase();  // Convert to lowercase for comparison
-    
-    console.log(`Extracted character name: ${characterName}`);  // Log to check if the name is correct
+    const characterName = selectedImage.split('/').pop().split('.')[0];  // Assuming name is in the filename
     
     // Fetch metadata
     const charactersMetadata = await fetchCharacterMetadata();
     
-    // Log the metadata to check if it's an array and the structure
-    console.log('Fetched metadata:', charactersMetadata);
+    // Check if it's an array and if it contains the data
+    if (!Array.isArray(charactersMetadata)) {
+        console.error('Character metadata is not an array:', charactersMetadata);
+        return;
+    }
     
     // Find metadata for the locked character
-    const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName);
+    const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName.toLowerCase());
     
     const characterInfoContainer = document.getElementById('characterInfo');
     const characterDescription = document.getElementById('characterDescription');
@@ -114,6 +120,7 @@ async function lockImage() {
     document.getElementById('lockButton').style.display = 'none';
     document.getElementById('unlockButton').style.display = 'inline-block';
 }
+
 
 function unlockImage() {
     document.getElementById('randomImage').style.display = 'none';
