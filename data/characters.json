@@ -1,18 +1,10 @@
 [
   {
     "name": "scott",
-    "age": 26,
-    "birthYear": 1999,
-    "height": "5'10",
-    "gender": "Male",
-    "description": "Scott is a fun-loving guy who enjoys programming and games!"
+    "description": " is a handsome fella!"
   },
   {
     "name": "julie",
-    "age": 30,
-    "birthYear": 1994,
-    "height": "6'0",
-    "gender": "Male",
-    "description": "Julie is an avid traveler and an expert in design."
+    "description": " is an avid traveler and an expert in design."
   }
 ]
