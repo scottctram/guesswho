@@ -135,28 +135,11 @@ async function lockImage() {
 
 
 function unlockImage() {
-    // Hide the character info container
-    const characterInfoContainer = document.getElementById('characterInfo');
-    characterInfoContainer.style.visibility = 'hidden';  // Try visibility instead of display
-    characterInfoContainer.style.display = 'none';  // Hide the character info box
-    
-    // Clear the character description text
-    const characterDescription = document.getElementById('characterDescription');
-    characterDescription.textContent = '';  // Clear the description
-    
-    // Hide the random image (assuming it's in #randomImage)
-    const randomImage = document.getElementById('randomImage');
-    randomImage.style.display = 'none';  // Hide the image
-    
-    // Clear the timestamp
+    document.getElementById('randomImage').style.display = 'none';
+	document.getElementById('characterInfo').style.display = 'none';
     document.getElementById('timestamp').textContent = '';
-    
-    // Enable the pick random image button again
     document.getElementById('pickRandomImageButton').disabled = false;
-    
-    // Hide the unlock button and show the lock button again
     document.getElementById('unlockButton').style.display = 'none';
-    document.getElementById('lockButton').style.display = 'inline-block';
 }
 
 
