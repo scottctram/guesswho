@@ -31,7 +31,7 @@ Guess Who! - Scole Edition is a web-based interactive guessing game inspired by 
 ## File Structure
 ```
 /guesswho
-├── index.html         # Main HTML file
+├── scole.html         # Main HTML file
 ├── styles.css         # Stylesheet
 ├── script.js         # Main JavaScript logic
 ├── images/           # Contains categorized images
