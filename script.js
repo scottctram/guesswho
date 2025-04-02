@@ -67,16 +67,19 @@ function pickRandomImage() {
 
 async function fetchCharacterMetadata() {
     try {
-        const response = await fetch('data/characters.json');
-        if (!response.ok) throw new Error('Error fetching character metadata');
+        // Fetch the character metadata (JSON) from the repository
+        const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/data/characters.json?ref=${repoConfig.branch}`);
         
-        const data = await response.json();
-        return data;
+        if (!response.ok) throw new Error(`GitHub API error: ${response.statusText}`);
+        
+        const metadata = await response.json();
+        return metadata;
     } catch (error) {
-        console.error('Error fetching character metadata:', error);
-        return [];
+        console.error("Error fetching character metadata:", error);
+        return null;
     }
 }
+
 
 async function lockImage() {
     document.getElementById('pickRandomImageButton').disabled = true;
