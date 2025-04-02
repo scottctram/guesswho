@@ -105,7 +105,13 @@ async function lockImage() {
     const characterDescription = document.getElementById('characterDescription');
     
     if (character) {
-        characterDescription.textContent = `Name: ${character.name}\nAge: ${character.age}\nHeight: ${character.height}\nGender: ${character.gender}\nDescription: ${character.description}`;
+        characterDescription.innerHTML = `
+        <p><strong>Name:</strong> ${character.name}</p>
+        <p><strong>Age:</strong> ${character.age}</p>
+        <p><strong>Height:</strong> ${character.height}</p>
+        <p><strong>Gender:</strong> ${character.gender}</p>
+        <p><strong>Description:</strong> ${character.description}</p>
+    `;
     } else {
         characterDescription.textContent = "No metadata found on this person 😔";
     }
