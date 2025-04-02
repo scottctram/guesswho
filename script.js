@@ -75,18 +75,12 @@ async function fetchCharacterMetadata() {
 
         const metadata = await response.json();
         
-        // Log the metadata to check its structure
-        console.log('Character file metadata:', metadata);
-        
         // Decode the Base64 content
         const base64Content = metadata.content;
         const decodedContent = atob(base64Content);  // Decode from Base64
         
         // Parse the decoded content into JSON
         const characters = JSON.parse(decodedContent);
-        
-        // Log the actual character data to ensure it's an array
-        console.log('Fetched character data:', characters);
         
         return characters;  // This should now be the array you want
     } catch (error) {
@@ -103,15 +97,6 @@ async function lockImage() {
     
     // Fetch metadata
     const charactersMetadata = await fetchCharacterMetadata();
-    
-    // Log the metadata to inspect its structure
-    console.log('Fetched Character Metadata:', charactersMetadata);
-    
-    // Check if it's an array
-    if (!Array.isArray(charactersMetadata)) {
-        console.error('Error: charactersMetadata is not an array:', charactersMetadata);
-        return;
-    }
     
     // Find metadata for the locked character
     const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName.toLowerCase());
