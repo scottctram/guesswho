@@ -61,7 +61,8 @@ function pickRandomImage() {
     const randomImage = availableImages[Math.floor(Math.random() * availableImages.length)];
     document.getElementById('randomImage').src = randomImage;
     document.getElementById('randomImage').style.display = 'block';
-
+    
+    const selectedImage = document.getElementById('randomImage').src;
     const characterName = selectedImage.split('/').pop().split('.')[0];
     
     // Fetch metadata
@@ -109,9 +110,7 @@ async function fetchCharacterMetadata() {
 
 
 async function lockImage() {
-    document.getElementById('pickRandomImageButton').disabled = true;
-    const selectedImage = document.getElementById('randomImage').src;
-    
+    document.getElementById('pickRandomImageButton').disabled = true;    
     document.getElementById('timestamp').textContent = `Locked at: ${new Date().toLocaleString()}`;
     document.getElementById('lockButton').style.display = 'none';
     document.getElementById('unlockButton').style.display = 'inline-block';
