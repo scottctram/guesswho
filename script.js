@@ -96,9 +96,12 @@ async function lockImage() {
     // Fetch metadata
     const charactersMetadata = await fetchCharacterMetadata();
     
-    // Check if it's an array and if it contains the data
+    // Log the metadata to inspect its structure
+    console.log('Fetched Character Metadata:', charactersMetadata);
+    
+    // Check if it's an array
     if (!Array.isArray(charactersMetadata)) {
-        console.error('Character metadata is not an array:', charactersMetadata);
+        console.error('Error: charactersMetadata is not an array:', charactersMetadata);
         return;
     }
     
@@ -120,6 +123,7 @@ async function lockImage() {
     document.getElementById('lockButton').style.display = 'none';
     document.getElementById('unlockButton').style.display = 'inline-block';
 }
+
 
 
 function unlockImage() {
