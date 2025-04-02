@@ -135,6 +135,15 @@ async function lockImage() {
 
 
 function unlockImage() {
+
+    // Hide the character info container
+    const characterInfoContainer = document.getElementById('characterInfo');
+    characterInfoContainer.style.display = 'none';
+    
+    // Clear the character description text
+    const characterDescription = document.getElementById('characterDescription');
+    characterDescription.textContent = '';
+    
     document.getElementById('randomImage').style.display = 'none';
     document.getElementById('timestamp').textContent = '';
     document.getElementById('pickRandomImageButton').disabled = false;
