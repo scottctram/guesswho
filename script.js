@@ -137,6 +137,7 @@ async function lockImage() {
 function unlockImage() {
     // Hide the character info container
     const characterInfoContainer = document.getElementById('characterInfo');
+    characterInfoContainer.style.visibility = 'hidden';  // Try visibility instead of display
     characterInfoContainer.style.display = 'none';  // Hide the character info box
     
     // Clear the character description text
