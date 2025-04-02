@@ -98,14 +98,13 @@ async function lockImage() {
     // Fetch metadata
     const charactersMetadata = await fetchCharacterMetadata();
     
-    // Find metadata for the locked character
     const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName.toLowerCase());
     
     const characterInfoContainer = document.getElementById('characterInfo');
     const characterDescription = document.getElementById('characterDescription');
     
     if (character) {
-        characterDescription.innerHTML = '${character.name} ${character.description}';
+        characterDescription.innerHTML = `${character.name} ${character.description}`;
     } else {
         characterDescription.textContent = "No metadata found on this person 😔";
     }
