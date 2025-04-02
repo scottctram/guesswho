@@ -77,7 +77,7 @@ async function fetchCharacterMetadata() {
         
         // Decode the Base64 content
         const base64Content = metadata.content;
-        const decodedContent = atob(base64Content);  // Decode from Base64
+        const decodedContent = atob(base64Content);  
         
         // Parse the decoded content into JSON
         const characters = JSON.parse(decodedContent);
@@ -93,7 +93,7 @@ async function fetchCharacterMetadata() {
 async function lockImage() {
     document.getElementById('pickRandomImageButton').disabled = true;
     const selectedImage = document.getElementById('randomImage').src;
-    const characterName = selectedImage.split('/').pop().split('.')[0];  // Assuming name is in the filename
+    const characterName = selectedImage.split('/').pop().split('.')[0];
     
     // Fetch metadata
     const charactersMetadata = await fetchCharacterMetadata();
@@ -107,7 +107,7 @@ async function lockImage() {
     if (character) {
         characterDescription.textContent = `Name: ${character.name}\nAge: ${character.age}\nHeight: ${character.height}\nGender: ${character.gender}\nDescription: ${character.description}`;
     } else {
-        characterDescription.textContent = "No info found";
+        characterDescription.textContent = "No metadata found on this person 😔";
     }
     
     characterInfoContainer.style.display = 'block';
@@ -116,8 +116,6 @@ async function lockImage() {
     document.getElementById('lockButton').style.display = 'none';
     document.getElementById('unlockButton').style.display = 'inline-block';
 }
-
-
 
 function unlockImage() {
     document.getElementById('randomImage').style.display = 'none';
@@ -129,6 +127,18 @@ function unlockImage() {
     document.getElementById('lockContainer').style.display = 'none';
 }
 
+function toggleNotepad() {
+    const notepad = document.getElementById("notepad");
+    const notepadText = document.getElementById("notepadText");
+    const minimizeButton = document.getElementById("minimizeButton");
+    const expandButton = document.getElementById("expandButton");
+
+    const isHidden = notepadText.style.display === "none";
+    notepad.style.height = isHidden ? "200px" : "30px";
+    notepadText.style.display = isHidden ? "block" : "none";
+    minimizeButton.style.display = isHidden ? "inline" : "none";
+    expandButton.style.display = isHidden ? "none" : "inline";
+}
 
 function expandNotepad() {
     toggleNotepad();
