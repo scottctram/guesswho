@@ -56,11 +56,29 @@ function pickRandomImage() {
     const availableImages = [...document.querySelectorAll('.grid img:not(.deselected)')]
         .map(img => img.dataset.filename);
     
-    if (availableImages.length === 0) return alert('No images selected!');
+    if (availableImages.length === 0) return alert('All images are de-selected, please select or refresh!');
     
     const randomImage = availableImages[Math.floor(Math.random() * availableImages.length)];
     document.getElementById('randomImage').src = randomImage;
     document.getElementById('randomImage').style.display = 'block';
+
+    const characterName = selectedImage.split('/').pop().split('.')[0];
+    
+    // Fetch metadata
+    const charactersMetadata = await fetchCharacterMetadata();
+    
+    const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName.toLowerCase());
+    
+    const characterInfoContainer = document.getElementById('characterInfo');
+    const characterDescription = document.getElementById('characterDescription');
+    
+    if (character) {
+        characterDescription.innerHTML = `${character.name} ${character.description}`;
+    } else {
+        characterDescription.textContent = "No metadata found on this person 😔";
+    }
+    
+    characterInfoContainer.style.display = 'block';
     document.getElementById('lockContainer').style.display = 'block';
     document.getElementById('lockButton').style.display = 'inline-block';
 }
@@ -93,23 +111,6 @@ async function fetchCharacterMetadata() {
 async function lockImage() {
     document.getElementById('pickRandomImageButton').disabled = true;
     const selectedImage = document.getElementById('randomImage').src;
-    const characterName = selectedImage.split('/').pop().split('.')[0];
-    
-    // Fetch metadata
-    const charactersMetadata = await fetchCharacterMetadata();
-    
-    const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName.toLowerCase());
-    
-    const characterInfoContainer = document.getElementById('characterInfo');
-    const characterDescription = document.getElementById('characterDescription');
-    
-    if (character) {
-        characterDescription.innerHTML = `${character.name} ${character.description}`;
-    } else {
-        characterDescription.textContent = "No metadata found on this person 😔";
-    }
-    
-    characterInfoContainer.style.display = 'block';
     
     document.getElementById('timestamp').textContent = `Locked at: ${new Date().toLocaleString()}`;
     document.getElementById('lockButton').style.display = 'none';
