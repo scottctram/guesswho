@@ -84,13 +84,20 @@ async function fetchCharacterMetadata() {
 async function lockImage() {
     document.getElementById('pickRandomImageButton').disabled = true;
     const selectedImage = document.getElementById('randomImage').src;
-    const characterName = selectedImage.split('/').pop().split('.')[0];  // Assuming name is in the filename
+
+    // Extract character name from the image filename
+    const characterName = selectedImage.split('/').pop().split('.')[0].toLowerCase();  // Convert to lowercase for comparison
+    
+    console.log(`Extracted character name: ${characterName}`);  // Log to check if the name is correct
     
     // Fetch metadata
     const charactersMetadata = await fetchCharacterMetadata();
     
+    // Log the metadata to check if it's an array and the structure
+    console.log('Fetched metadata:', charactersMetadata);
+    
     // Find metadata for the locked character
-    const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName.toLowerCase());
+    const character = charactersMetadata.find(char => char.name.toLowerCase() === characterName);
     
     const characterInfoContainer = document.getElementById('characterInfo');
     const characterDescription = document.getElementById('characterDescription');
