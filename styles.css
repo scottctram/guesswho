@@ -112,3 +112,28 @@ button:disabled {
 #notepadText.hidden {
     display: none;
 }
+
+#characterInfo {
+    display: none;
+    background-color: #333;
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 2px solid #444;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+#characterDescription {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+#characterInfo p {
+    margin: 10px 0;
+}
+
+#characterInfo p:first-child {
+    font-weight: bold;
+}
