@@ -82,7 +82,7 @@ async function fetchCharacterMetadata() {
         // Parse the decoded content into JSON
         const characters = JSON.parse(decodedContent);
         
-        return characters;  // This should now be the array you want
+        return characters; 
     } catch (error) {
         console.error('Error in fetchCharacterMetadata:', error);
         throw error;
