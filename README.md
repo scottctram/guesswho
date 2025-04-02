@@ -15,7 +15,7 @@ Guess Who! - Scole Edition is a web-based interactive guessing game inspired by 
 
 ## Technologies Used
 - **HTML, CSS, JavaScript** for the frontend.
-- **GitHub API** for retrieving image assets dynamically.
+- **GitHub API** for retrieving image assets and json information dynamically.
 - **Google Fonts** for a custom typography experience.
 
 ## How to Play
@@ -37,11 +37,12 @@ Guess Who! - Scole Edition is a web-based interactive guessing game inspired by 
 ├── images/           # Contains categorized images
 │   ├── scoleparty/   # Scole Party images
 │   ├── otherparty/   # Other images
+├── data/             # Contains json character descriptions
 ```
 
 ## Future Enhancements
 - Add more categories and customization options.
-- Add metadata or about me to each image when locked.
+- Improve metadata to each character
 - Improve image quality and cropping.
 - Implement multiplayer functionality.
 - Improve mobile responsiveness.
