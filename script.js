@@ -136,10 +136,11 @@ async function lockImage() {
 
 function unlockImage() {
     document.getElementById('randomImage').style.display = 'none';
-	document.getElementById('characterInfo').style.display = 'none';
+    document.getElementById('characterInfo').style.display = 'none';
     document.getElementById('timestamp').textContent = '';
     document.getElementById('pickRandomImageButton').disabled = false;
     document.getElementById('unlockButton').style.display = 'none';
+    document.getElementById('lockButton').style.display = 'none';
 }
 
 
