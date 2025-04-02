@@ -66,25 +66,26 @@ function pickRandomImage() {
 }
 
 async function fetchCharacterMetadata() {
-    try {
-        // Fetch the metadata of the characters.json file
-        const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/data/characters.json?ref=${repoConfig.branch}`);
-        if (!response.ok) throw new Error(`GitHub API error: ${response.statusText}`);
-        
-        const fileInfo = await response.json();
-        
-        // Fetch the actual JSON data using the download_url
-        const metadataResponse = await fetch(fileInfo.download_url);
-        if (!metadataResponse.ok) throw new Error(`Error fetching metadata file: ${metadataResponse.statusText}`);
-        
-        const metadata = await metadataResponse.json();
-        console.log('Character Metadata:', metadata);  // Log the data to confirm it's an array
-        return Array.isArray(metadata) ? metadata : [];  // Ensure it's an array, otherwise return an empty array
-    } catch (error) {
-        console.error('Error fetching character metadata:', error);
-        return [];  // Return an empty array in case of an error
+    const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/data/characters.json?ref=${repoConfig.branch}`);
+    
+    if (!response.ok) {
+        throw new Error('Error fetching character metadata');
     }
+
+    const metadata = await response.json();
+    
+    // Fetch the actual content of the JSON file from the download_url
+    const characterResponse = await fetch(metadata.download_url);
+    
+    if (!characterResponse.ok) {
+        throw new Error('Error fetching character data');
+    }
+    
+    const characters = await characterResponse.json();
+    console.log('Fetched character data:', characters);
+    return characters;
 }
+
 
 
 
