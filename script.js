@@ -141,6 +141,7 @@ function unlockImage() {
     document.getElementById('pickRandomImageButton').disabled = false;
     document.getElementById('unlockButton').style.display = 'none';
     document.getElementById('lockButton').style.display = 'none';
+    document.getElementById('lockContainer').style.display = 'none';
 }
 
 
