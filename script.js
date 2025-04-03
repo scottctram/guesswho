@@ -49,7 +49,7 @@ function toggleOtherParty() {
     const allDeselected = Array.from(images).every(img => img.classList.contains('deselected'));
     
     images.forEach(img => img.classList.toggle('deselected', !allDeselected));
-    document.getElementById('toggleOtherPartyButton').textContent = allDeselected ? 'Deselect Other Party' : 'Reselect Other Party';
+    document.getElementById('toggleOtherPartyButton').textContent = allDeselected ? 'Deselect Expansion Pack' : 'Reselect Expansion Pack';
 }
 
 function pickRandomImage() {
