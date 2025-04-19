@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess Who!</title>
+    <meta property="og:image" content="https://raw.githubusercontent.com/scottctram/guesswho/main/images/previewimage.jpg?"/>
+    <meta name="description" content="Guess Who Board DAVS Edition">
+    <meta name="author" content="Scott Tram">
+    <link href='https://fonts.googleapis.com/css?family=Work Sans' rel='stylesheet'>
+    <link rel="icon" type="image/png" href="https://github.com/scottctram/guesswho/raw/main/images/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Guess Who</h1>
+    <p>Tap images to exclude them from selection.</p>
+    
+    <span class="category-label">DAVS</span>
+    <div class="grid" id="scoleGrid"></div>
+    
+    <span class="category-label">Expansion Pack</span>
+    <div class="grid" id="otherGrid"></div>
+    
+    <button id="toggleOtherPartyButton" onclick="toggleOtherParty()">Deselect Expansion Pack</button>
+
+
+    <button id="pickRandomImageButton" onclick="pickRandomImage()">Pick Random Image</button>
+    <img id="randomImage" alt="Random Image">
+    
+    <div id="lockContainer" style="display:none;">
+        <div id="characterInfo" style="display: none;">
+            <p id="characterDescription"></p>
+        </div>
+        <button id="lockButton" onclick="lockImage()">Lock</button>
+        <button id="unlockButton" style="display:none;" onclick="unlockImage()">Unlock</button>
+        <p id="timestamp" class="timestamp"></p>
+    </div>
+
+    <div id="notepad">
+        <div id="notepadHeader">
+            <span id="notepadTitle">Notepad</span>
+            <div id="notepadButtons">
+                <button id="minimizeButton" onclick="toggleNotepad()">_</button>
+                <button id="expandButton" onclick="expandNotepad()" style="display: none;">+</button>
+            </div>
+        </div>
+        <textarea id="notepadText" placeholder="Write your notes here... "></textarea>
+    </div>
+    
+    <script src="script.js"></script>
+    
+</body>
+</html>
