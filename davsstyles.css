@@ -1,7 +1,7 @@
 body {
     font-family: 'Work Sans', sans-serif;
     font-size: 22px;
-    background-color: #222; /* Dark background for contrast */
+    background-color: #00539B; /* Dark background for contrast */
     color: white; /* Default text color */
     text-align: center;
     padding: 20px;
@@ -115,7 +115,7 @@ button:disabled {
 
 #characterInfo {
     display: none;
-    background-color: #333;
+    background-color: #00539B;
     padding: 20px;
     margin-top: 15px;
     border-radius: 10px;
