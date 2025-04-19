@@ -3,7 +3,7 @@ const repoConfig = {
     name: "guesswho",
     branch: "main",
     paths: {
-        scole: "images/scoleparty",
+        scole: "images/davs",
         other: "images/otherparty"
     }
 };
