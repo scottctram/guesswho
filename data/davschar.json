@@ -1,8 +1,8 @@
 [
   {"name": "Kamal", "description": "calm, knowledgeable, friendly"},
-  {"name": "Sarah", "description": "personable, energetic, trendy"},
+  {"name": "Sarah", "description": "personable, energetic, raconteur"},
   {"name": "Hilary", "description": "organized, confident, insightful"},
-  {"name": "Sean", "description": "approachable, resourceful, dependable"},
+  {"name": "Sean", "description": "approachable, resourceful, raconteur"},
   {"name": "Michele", "description": "dedicated, clear, empathetic"},
   {"name": "Gabe", "description": "hilarious, clever, trendy"},
   {"name": "Susan", "description": "leader, considerate, affable"},
@@ -24,7 +24,7 @@
   {"name": "Bob", "description": "approachable, knowledgeable, engaging"},
   {"name": "Duncan", "description": "hilarious, inquisitive, approachable"},
   {"name": "Laura", "description": "sociable, patient, methodical"},
-  {"name": "Scott", "description": "handsome, ambitious, approachable"},
+  {"name": "Scott", "description": "handsome :D, ambitious, approachable"},
   {"name": "Dixon", "description": "logical, upbeat, collaborative"},
   {"name": "Jing", "description": "knowledgeable, hardworking, inquisitive"},
   {"name": "Hubert", "description": "technical, cool, practical"}
