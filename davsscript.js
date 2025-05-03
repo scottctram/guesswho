@@ -69,7 +69,7 @@ function pickRandomImage() {
 
 async function fetchCharacterMetadata() {
     try {
-        const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/data/characters.json?ref=${repoConfig.branch}`);
+        const response = await fetch(`https://api.github.com/repos/${repoConfig.owner}/${repoConfig.name}/contents/data/davschar.json?ref=${repoConfig.branch}`);
         
         if (!response.ok) {
             throw new Error('Error fetching character metadata');
