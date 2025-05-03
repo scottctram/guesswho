@@ -22,7 +22,6 @@ body {
     object-fit: cover;
     cursor: pointer;
     transition: opacity 0.3s;
-    clip-path: inset(15px 0 0 0);
     box-sizing: border-box;
     position: relative;
     border: 3px solid transparent;
