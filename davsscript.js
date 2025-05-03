@@ -1,3 +1,12 @@
+(function() {
+    const password = prompt("Enter password to access the site:");
+    if (password !== "davs1234!") {
+        alert("Incorrect password. Reload the page to try again.");
+        document.body.innerHTML = "";  // Clear the page
+        throw new Error("Access denied due to incorrect password.");
+    }
+})();
+
 const repoConfig = {
     owner: "scottctram",
     name: "guesswho",
