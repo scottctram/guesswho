@@ -4,7 +4,7 @@ const repoConfig = {
     branch: "main",
     paths: {
         scole: "images/davs",
-        other: "images/otherparty"
+        other: "images/otheryork"
     }
 };
 
